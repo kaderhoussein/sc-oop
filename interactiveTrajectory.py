@@ -24,10 +24,14 @@ def plot_interactive_trajectory_2d(adata):
     
     # Create the interactive 2D scatter plot
     fig = go.Figure()
-    fig.add_trace(go.Scatter(x=adata.obsm['X_diffmap'][:, 0], y=adata.obsm['X_diffmap'][:, 1], mode='markers', marker=dict(color=adata.obs['dpt_pseudotime'],colorscale='viridis'),text=adata.obs_names))
+    fig.add_trace(go.Scatter(x=adata.obsm['X_diffmap'][:, 0],
+                             y=adata.obsm['X_diffmap'][:, 1],
+                             mode='markers', marker=dict(color=adata.obs['dpt_pseudotime'],colorscale='viridis'),text=adata.obs_names))
     
     # Add layout and axis labels
-    fig.update_layout(title='Interactive Trajectory Plot', xaxis_title='Diffmap Component 1',yaxis_title='Diffmap Component 2')
+    fig.update_layout(title='Interactive Trajectory Plot',
+                      xaxis_title='Diffmap Component 1',
+                      yaxis_title='Diffmap Component 2')
     
     # Show the plot
     fig.show(config={"displayModeBar": True}, auto_open=True)
@@ -47,10 +51,15 @@ def plot_interactive_trajectory_3d(adata):
     
     # Create the interactive 3D scatter plot
     fig = go.Figure()
-    fig.add_trace(go.Scatter3d(x=adata.obsm['X_diffmap'][:, 0], y=adata.obsm['X_diffmap'][:, 1], z=adata.obsm['X_diffmap'][:, 2],mode='markers',marker=dict(color=adata.obs['dpt_pseudotime'],colorscale='viridis'),text=adata.obs_names))
+    fig.add_trace(go.Scatter3d(x=adata.obsm['X_diffmap'][:, 0],
+                               y=adata.obsm['X_diffmap'][:, 1],
+                               z=adata.obsm['X_diffmap'][:, 2],
+                               mode='markers',marker=dict(color=adata.obs['dpt_pseudotime'],colorscale='viridis'),text=adata.obs_names))
     
     # Add layout and axis labels
-    fig.update_layout(title='Interactive 3D Trajectory Plot',scene=dict(xaxis_title='Diffmap Component 1', yaxis_title='Diffmap Component 2',zaxis_title='Diffmap Component 3'))
+    fig.update_layout(title='Interactive 3D Trajectory Plot',scene=dict(xaxis_title='Diffmap Component 1', 
+                                                                        yaxis_title='Diffmap Component 2',
+                                                                        zaxis_title='Diffmap Component 3'))
     
     # Show the plot
     fig.show(config={"displayModeBar": True}, auto_open=True)
