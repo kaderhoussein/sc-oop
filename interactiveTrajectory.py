@@ -22,7 +22,7 @@ def plot_interactive_trajectory_2d(adata):
     # Perform trajectory inference
     sc.tl.dpt(adata)
     
-    # Create an interactive scatter plot
+    # Create the interactive 2D scatter plot
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=adata.obsm['X_diffmap'][:, 0], y=adata.obsm['X_diffmap'][:, 1], mode='markers', marker=dict(color=adata.obs['dpt_pseudotime'],colorscale='viridis'),text=adata.obs_names))
     
@@ -45,7 +45,7 @@ def plot_interactive_trajectory_3d(adata):
     # Perform trajectory inference (e.g., pseudotime estimation)
     sc.tl.dpt(adata)
     
-    # Create an interactive 3D scatter plot
+    # Create the interactive 3D scatter plot
     fig = go.Figure()
     fig.add_trace(go.Scatter3d(x=adata.obsm['X_diffmap'][:, 0], y=adata.obsm['X_diffmap'][:, 1], z=adata.obsm['X_diffmap'][:, 2],mode='markers',marker=dict(color=adata.obs['dpt_pseudotime'],colorscale='viridis'),text=adata.obs_names))
     
