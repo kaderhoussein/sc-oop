@@ -26,6 +26,8 @@ Here's an example of how to use the provided functions:
 
 `import scanpy as sc`
 
+`import plotly as pl`
+
 `import plotly.graph_objects as go`
 
 ## Load example scRNA-seq data
