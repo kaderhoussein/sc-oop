@@ -41,3 +41,7 @@ Here's an example of how to use the provided functions:
 ## Run 3D trajectory visualization
 
 `plot_interactive_trajectory_3d(adata)`
+
+## Team members
+- Benamad Kader Houssein
+- Abdou Khadre DIOUF
