@@ -1,10 +1,5 @@
 !pip install scanpy
 !pip install plotly
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from matplotlib import RcParams
-from mpl_toolkits.mplot3d import Axes3D
 import scanpy as sc
 import plotly.graph_objects as go
 
