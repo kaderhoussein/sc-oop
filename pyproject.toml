@@ -1,37 +1,43 @@
-[build-system]
-build-backend = "hatchling.build"
-requires = ["hatchling", "hatch-vcs"]
-
 [project]
 name = "scoop"
-description = ""
-requires-python = ">=3.9"
-license = "BSD-3-clause"
+dynamic = ["version"]
 authors = [
-    {name = "Benamad Kader Houssein"},
-    {name = "Abdou Khadre Djeylani Diouf"},
+    {name="Benamad Kader Houssein"},
+    {name="Abdou Khadre Djeylani Diouf"}
 ]
-readme = "README.md"
-
 dependencies = [
     "scanpy",
     "plotly",
 ]
-dynamic = ["version"]
-
+description = "A dynamic scanpy plotting alternative based on plotly"
+readme = "README.md"
+license = "BSD-3-clause"
+keywords = ["single cell", "visualization"]
 [project.urls]
-Reposityory = "https://github.com/kaderhoussein/scoop"
+Repository = "https://github.com/kaderhoussein/sc_oop"
+Documentation = "https://kaderhoussein.github.io/sc_oop"
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
 
+[tool.hatch.build]
+exclude = ["sc_oop/tests"]
+[tool.hatch.version]
+source = "vcs"
+[tool.hatch.build.hooks.vcs]
+version-file = "sc_oop/_version.py"
 
+[project.optional-dependencies]
 test = [
     "pytest"
 ]
-
-doc = [
+docs = [
+    "pytz",
+    "tzdata", # avoid error on CI
     "sphinx>=7",
     "sphinx-book-theme>=1.1.0",
-    "scanpydoc>=0.13.4",
     "sphinx-autodoc-typehints>=1.25.2",
+    "sphinx-gitref",
     "myst-parser>=2",
     "myst-nb>=1",
     "sphinx-design",
@@ -39,21 +45,9 @@ doc = [
     "sphinxext-opengraph", # for nice cards when sharing on social
     "sphinx-copybutton",
     "nbsphinx>=0.9",
-    "ipython>=7.20",  # for nbsphinx code highlighting
-    "matplotlib!=3.6.1",
-    # TODO: remove necessity for being able to import doc-linked classes
-    "scanpy[paga]",
-    "sam-algorithm",
+    "ipython>=7.20",  # for nbsphinx code highlighting,
+    "nbclean",
 ]
 dev = [
-    "pre-commit",
+    "pre-commit"
 ]
-
-[tool.hatch.build]
-exclude = ["scoop/tests"]
-[tool.hatch.version]
-source = "vcs"
-[tool.hatch.build.hooks.vcs]
-version-file = "scoop/_version.py"
-
-
