@@ -1,9 +1,9 @@
 import scanpy
 import plotly
 
-from .plotting.tools.scatterplot import diffmap
+from .plotting._tools.scatterplots import interactive_diffmap
 
 __all__ = [
 
-    "diffmap",
+    "interactive_diffmap",
 ]
