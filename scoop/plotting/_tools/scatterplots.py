@@ -764,49 +764,35 @@ def interactive_diffmap(adata: AnnData, **kwargs) -> Figure | Axes | list[Axes] 
     --------
     tl.diffmap
     """
+    # 2D
+def plot_interactive_trajectory_2d_(adata):
+
     # Compute neighborhood graph
     sc.pp.neighbors(adata)
-    
+
     # Perform diffusion map embedding
     sc.tl.diffmap(adata)
-    
+
     # Perform trajectory inference
     sc.tl.dpt(adata)
-    
-    # Create an interactive scatter plot
-    fig = go.Figure()
-    fig.add_trace(go.Scatter(x=adata.obsm['X_diffmap'][:, 0], y=adata.obsm['X_diffmap'][:, 1], mode='markers', marker=dict(color=adata.obs['dpt_pseudotime'],colorscale='viridis'),text=adata.obs_names))
-    
-    # Add layout and axis labels
-    fig.update_layout(title='Interactive Trajectory Plot', xaxis_title='Diffmap Component 1',yaxis_title='Diffmap Component 2')
-    
-    # Show the plot
-    fig.show(config={"displayModeBar": True}, auto_open=True)
-    #return embedding(adata, "diffmap", **kwargs)
 
-def interactive_diffmap_3D(adata):
-    #Plot interactive 3D trajectory visualization.
-    # Compute neighborhood graph
-    sc.pp.neighbors(adata)
-    
-    # Perform diffusion map embedding
-    sc.tl.diffmap(adata)
-    
-    # Perform trajectory inference (e.g., pseudotime estimation)
-    sc.tl.dpt(adata)
-    
-    # Create the interactive 3D scatter plot
+    # Create the interactive 2D scatter plot
     fig = go.Figure()
-    fig.add_trace(go.Scatter3d(x=adata.obsm['X_diffmap'][:, 0],
-                               y=adata.obsm['X_diffmap'][:, 1],
-                               z=adata.obsm['X_diffmap'][:, 2],
-                               mode='markers',marker=dict(color=adata.obs['dpt_pseudotime'],colorscale='viridis'),text=adata.obs_names))
-    
+    fig.add_trace(go.Scatter(x=adata.obsm['X_diffmap'][:, 0],
+                         y=adata.obsm['X_diffmap'][:, 1],
+                         mode='markers', 
+                         marker=dict(color=adata.obs['dpt_pseudotime'], colorscale='viridis', colorbar=dict(title='Pseudotime')),
+                         text=adata.obs['paul15_clusters'],
+                         customdata=adata.obs['n_counts_all'],
+                         hovertemplate='Pseudotime: %{marker.color:.2f}<br>Cluster: %{text}<br>N Counts: %{customdata:.2f}<extra></extra>'
+                         )
+            )
+
     # Add layout and axis labels
-    fig.update_layout(title='Interactive 3D Trajectory Plot',scene=dict(xaxis_title='Diffmap Component 1', 
-                                                                        yaxis_title='Diffmap Component 2',
-                                                                        zaxis_title='Diffmap Component 3'))
-    
+    fig.update_layout(title='Interactive Trajectory Plot',
+                      xaxis_title='Diffmap Component 1',
+                      yaxis_title='Diffmap Component 2')
+
     # Show the plot
     fig.show(config={"displayModeBar": True}, auto_open=True)
 
