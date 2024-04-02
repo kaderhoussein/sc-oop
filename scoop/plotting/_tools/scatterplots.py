@@ -32,12 +32,13 @@ from scanpy.plotting._tools.scatterplots import (
 import scanpy as sc
 import plotly.graph_objects as go
 
+""""
 from ... import logging as logg
 from scanpy._settings import settings
 from scanpy._utils import Empty, _doc_params, _empty, sanitize_anndata
 from scanpy.get import _check_mask
 from .. import _utils
-
+"""
 from scanpy.plotting._utils import (
     ColorLike,
     VBound,
@@ -733,7 +734,7 @@ def tsne(adata: AnnData, **kwargs) -> Figure | Axes | list[Axes] | None:
     show_save_ax=doc_show_save_ax,
 )
 """
-def diffmap(adata: AnnData, **kwargs) -> Figure | Axes | list[Axes] | None:
+def interactive_diffmap(adata: AnnData, **kwargs) -> Figure | Axes | list[Axes] | None:
     """\
     Scatter plot in Diffusion Map basis.
 
@@ -782,6 +783,32 @@ def diffmap(adata: AnnData, **kwargs) -> Figure | Axes | list[Axes] | None:
     # Show the plot
     fig.show(config={"displayModeBar": True}, auto_open=True)
     #return embedding(adata, "diffmap", **kwargs)
+
+def interactive_diffmap_3D(adata):
+    #Plot interactive 3D trajectory visualization.
+    # Compute neighborhood graph
+    sc.pp.neighbors(adata)
+    
+    # Perform diffusion map embedding
+    sc.tl.diffmap(adata)
+    
+    # Perform trajectory inference (e.g., pseudotime estimation)
+    sc.tl.dpt(adata)
+    
+    # Create the interactive 3D scatter plot
+    fig = go.Figure()
+    fig.add_trace(go.Scatter3d(x=adata.obsm['X_diffmap'][:, 0],
+                               y=adata.obsm['X_diffmap'][:, 1],
+                               z=adata.obsm['X_diffmap'][:, 2],
+                               mode='markers',marker=dict(color=adata.obs['dpt_pseudotime'],colorscale='viridis'),text=adata.obs_names))
+    
+    # Add layout and axis labels
+    fig.update_layout(title='Interactive 3D Trajectory Plot',scene=dict(xaxis_title='Diffmap Component 1', 
+                                                                        yaxis_title='Diffmap Component 2',
+                                                                        zaxis_title='Diffmap Component 3'))
+    
+    # Show the plot
+    fig.show(config={"displayModeBar": True}, auto_open=True)
 
 
 @_wraps_plot_scatter
@@ -955,8 +982,8 @@ def spatial(
     *,
     basis: str = "spatial",
     img: np.ndarray | None = None,
-    img_key: str | None | Empty = _empty,
-    library_id: str | None | Empty = _empty,
+    img_key: str | None ,
+    library_id: str | None, 
     crop_coord: tuple[int, int, int, int] | None = None,
     alpha_img: float = 1.0,
     bw: bool | None = False,
