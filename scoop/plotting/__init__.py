@@ -1,3 +1,4 @@
+""""
 from __future__ import annotations
 
 from . import palettes
@@ -102,3 +103,4 @@ __all__ = [
     "timeseries_as_heatmap",
     "timeseries_subplot",
 ]
+"""
