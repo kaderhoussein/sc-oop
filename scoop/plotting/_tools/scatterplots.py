@@ -764,9 +764,8 @@ def interactive_diffmap(adata: AnnData, **kwargs) -> Figure | Axes | list[Axes] 
     --------
     tl.diffmap
     """
-    # 2D
-def plot_interactive_trajectory_2d_(adata):
-
+    # preprocessing 
+    sc.pp.recipe_zheng17(adata)
     # Compute neighborhood graph
     sc.pp.neighbors(adata)
 
