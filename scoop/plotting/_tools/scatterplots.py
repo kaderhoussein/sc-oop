@@ -31,6 +31,7 @@ from scanpy.plotting._tools.scatterplots import (
 
 import scanpy as sc
 import plotly.graph_objects as go
+import pandas as pd
 
 """"
 from ... import logging as logg
@@ -388,7 +389,7 @@ def embedding(
                     coords[:, 1],
                     s=gap_size,
                     c=gap_color,
-                    rasterized=settings._vector_friendly,
+                    rasterized=settings._vector_friendly,   
                     norm=normalize,
                     marker=marker[count],
                     **kwargs,
@@ -765,7 +766,9 @@ def interactive_diffmap(adata: AnnData, **kwargs) -> Figure | Axes | list[Axes] 
     tl.diffmap
     """
     # preprocessing 
-    sc.pp.recipe_zheng17(adata)
+    sc.pp.log1p(adata)
+    #
+    #sc.pp.pca(adata)
     # Compute neighborhood graph
     sc.pp.neighbors(adata)
 
@@ -780,10 +783,10 @@ def interactive_diffmap(adata: AnnData, **kwargs) -> Figure | Axes | list[Axes] 
     fig.add_trace(go.Scatter(x=adata.obsm['X_diffmap'][:, 0],
                          y=adata.obsm['X_diffmap'][:, 1],
                          mode='markers', 
-                         marker=dict(color=adata.obs['dpt_pseudotime'], colorscale='viridis', colorbar=dict(title='Pseudotime')),
-                         text=adata.obs['paul15_clusters'],
-                         customdata=adata.obs['n_counts_all'],
-                         hovertemplate='Pseudotime: %{marker.color:.2f}<br>Cluster: %{text}<br>N Counts: %{customdata:.2f}<extra></extra>'
+                         marker=dict(color=adata.obs.iloc[:,1], colorscale='viridis', colorbar=dict(title='Pseudotime')), #2nd column obs
+                         text=adata.obs.iloc[:,0],#1st column obs
+                         #customdata=adata.obs['n_counts_all'],
+                         hovertemplate='Pseudotime: %{marker.color:.2f}<br>Cluster: %{text}'
                          )
             )
 
