@@ -735,40 +735,14 @@ def tsne(adata: AnnData, **kwargs) -> Figure | Axes | list[Axes] | None:
     show_save_ax=doc_show_save_ax,
 )
 """
-def interactive_diffmap(adata: AnnData, **kwargs) -> Figure | Axes | list[Axes] | None:
-    """\
-    Scatter plot in Diffusion Map basis.
+def interactive_diffmap(adata, method='log1p'):
+    if method == 'log1p':
+        sc.pp.log1p(adata)
+    elif method == 'normalize_total':
+        sc.pp.normalize_total(adata)
+    else:
+        raise ValueError("Invalid method. Please choose either 'log1p' or 'normalize_total'.")
 
-    Parameters
-    ----------
-    {adata_color_etc}
-    {scatter_bulk}
-    {show_save_ax}
-
-    Returns
-    -------
-    If `show==False` a :class:`~matplotlib.axes.Axes` or a list of it.
-
-    Examples
-    --------
-    .. plot::
-        :context: close-figs
-
-        import scanpy as sc
-        adata = sc.datasets.pbmc68k_reduced()
-        sc.tl.diffmap(adata)
-        sc.pl.diffmap(adata, color='bulk_labels')
-
-    .. currentmodule:: scanpy
-
-    See also
-    --------
-    tl.diffmap
-    """
-    # preprocessing 
-    sc.pp.log1p(adata)
-    #
-    #sc.pp.pca(adata)
     # Compute neighborhood graph
     sc.pp.neighbors(adata)
 
@@ -780,24 +754,79 @@ def interactive_diffmap(adata: AnnData, **kwargs) -> Figure | Axes | list[Axes] 
 
     # Create the interactive 2D scatter plot
     fig = go.Figure()
-    fig.add_trace(go.Scatter(x=adata.obsm['X_diffmap'][:, 0],
-                         y=adata.obsm['X_diffmap'][:, 1],
-                         mode='markers', 
-                         marker=dict(color=adata.obs.iloc[:,1], colorscale='viridis', colorbar=dict(title='Pseudotime')), #2nd column obs
-                         text=adata.obs.iloc[:,0],#1st column obs
-                         #customdata=adata.obs['n_counts_all'],
-                         hovertemplate='Pseudotime: %{marker.color:.2f}<br>Cluster: %{text}'
-                         )
-            )
+    fig.add_trace(go.Scatter(x=adata.obsm['X_diffmap'][:, 1],
+                             y=adata.obsm['X_diffmap'][:, 2],
+                             mode='markers', 
+                             marker=dict(color=adata.obs.iloc[:,1], colorscale='viridis', colorbar=dict(title='Pseudotime')), #2nd column obs
+                             text=adata.obs.iloc[:,0],#1st column obs
+                             #customdata=adata.obs['n_counts_all'],
+                             hovertemplate='Pseudotime: %{marker.color:.2f}<br>Cluster: %{text}'
+                             )
+                 )
 
     # Add layout and axis labels
     fig.update_layout(title='Interactive Trajectory Plot',
                       xaxis_title='Diffmap Component 1',
                       yaxis_title='Diffmap Component 2')
 
+    # Add buttons for selecting method
+    fig.update_layout(
+        updatemenus=[
+            dict(
+                type="buttons",
+                buttons=list([
+                    dict(
+                        args=[{"x": [adata.obsm['X_diffmap'][:, 0]],
+                               "y": [adata.obsm['X_diffmap'][:, 1]],
+                               "marker.color": [adata.obs.iloc[:,1]],
+                               "marker.colorbar.title": "Pseudotime",
+                               "text": [adata.obs.iloc[:,0]]}],
+                        label="Component combination 1",
+                        method="restyle",
+                        args2=[{"x": [adata.obsm['X_diffmap'][:, 0]],
+                               "y": [adata.obsm['X_diffmap'][:, 1]],
+                               "marker.color": [adata.obs.iloc[:,1]],
+                               "marker.colorbar.title": "Pseudotime",
+                               "text": [adata.obs.iloc[:,0]]},
+                               ]
+                    ),
+                    dict(
+                        args=[{"x": [adata.obsm['X_diffmap'][:,1]],
+                               "y": [adata.obsm['X_diffmap'][:, 2]],
+                               "marker.color": [adata.obs.iloc[:,1]],
+                                "marker.colorbar.title": "Pseudotime",
+                               "text": [adata.obs.iloc[:,0]]}],
+                        label="Component combination 2",    
+                        method="restyle",
+                        args2=[{"x": [adata.obsm['X_diffmap'][:,1]],
+                               "y": [adata.obsm['X_diffmap'][:, 2]],
+                               "marker.color": [adata.obs.iloc[:,1]],
+                               "marker.colorbar.title": "Pseudotime",
+                               "text": [adata.obs.iloc[:,0]]},
+                        ]
+                    ),
+                    dict(
+                        args=[{"x": [adata.obsm['X_diffmap'][:,2]],
+                               "y": [adata.obsm['X_diffmap'][:, 3]],
+                               "marker.color": [adata.obs.iloc[:,1]],
+                                "marker.colorbar.title": "Pseudotime",
+                               "text": [adata.obs.iloc[:,0]]}],
+                        label="Component combination 3",    
+                        method="restyle",
+                        args2=[{"x": [adata.obsm['X_diffmap'][:,2]],
+                               "y": [adata.obsm['X_diffmap'][:, 3]],
+                               "marker.color": [adata.obs.iloc[:,1]],
+                               "marker.colorbar.title": "Pseudotime",
+                               "text": [adata.obs.iloc[:,0]]},
+                        ]
+                    )
+                ])
+            )
+        ]
+    )
+
     # Show the plot
     fig.show(config={"displayModeBar": True}, auto_open=True)
-
 
 @_wraps_plot_scatter
 
