@@ -48,7 +48,7 @@ def interactive_diffmap_2D(adata):
                         xaxis_title='Diffmap Component 1',
                         yaxis_title='Diffmap Component 2')
 
-        # Add buttons for selecting method
+        # Add buttons for selecting the components choices
         fig.update_layout(
             updatemenus=[
                 dict(
@@ -139,7 +139,7 @@ def interactive_diffmap_3D(adata):
                                  yaxis_title='Diffmap Component 2',
                                  zaxis_title='Diffmap Component 3'))
 
-    # Add buttons for selecting method
+    # Add buttons for selecting the component choices
     fig.update_layout(
         updatemenus=[
             dict(
@@ -184,3 +184,5 @@ def interactive_diffmap_3D(adata):
     # Show the plot
     plot = fig.show(config={"displayModeBar": True}, auto_open=True)
     return(plot)
+
+
