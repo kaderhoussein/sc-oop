@@ -22,7 +22,7 @@ def interactive_diffmap_2D(adata):
     fig.add_trace(go.Scatter(x=adata.obsm['X_diffmap'][:, 0],
                              y=adata.obsm['X_diffmap'][:, 1],
                              mode='markers', 
-                             marker=dict(color=adata.obs.iloc[:,1], colorscale='viridis', colorbar=dict(title='Pseudotime')), #2nd column obs
+                             marker=dict(color=adata.obs.iloc[:,1], colorscale='viridis', colorbar=dict(title=adata.obs.columns[1])), #2nd column obs
                              text=adata.obs.iloc[:,0],#1st column obs
                              customdata=adata.obs_names,
                              hovertemplate='Index : %{customdata}<br>'+adata.obs.columns[1]+': %{marker.color:.2f}'+'<br>'+adata.obs.columns[0]+ ': %{text}'
@@ -121,7 +121,7 @@ def interactive_diffmap_3D(adata):
                              y=adata.obsm['X_diffmap'][:, 1],
                              z=adata.obsm['X_diffmap'][:, 2],
                              mode='markers', 
-                             marker=dict(color=adata.obs.iloc[:,1], colorscale='viridis', colorbar=dict(title='Pseudotime')), #2nd column obs
+                             marker=dict(color=adata.obs.iloc[:,1], colorscale='viridis', colorbar=dict(title=adata.obs.columns[1])), #2nd column obs
                              text=adata.obs.iloc[:,0],#1st column obs
                              customdata=adata.obs_names,
                              hovertemplate='Index : %{customdata}<br>'+adata.obs.columns[1]+': %{marker.color:.2f}'+'<br>'+adata.obs.columns[0]+ ': %{text}'
