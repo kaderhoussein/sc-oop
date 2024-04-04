@@ -1,5 +1,5 @@
 
-# Interactive Scatter Plots for Single-Cell Data Analysis
+# Interactive diffusion map for Single-Cell Data Analysis
 
 This repository contains adapted functions from the scanpy package and custom plots to visualize single-cell data. The repository includes a requirements.txt file with the necessary libraries to run the code.
 
