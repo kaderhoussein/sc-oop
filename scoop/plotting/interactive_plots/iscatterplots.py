@@ -24,8 +24,8 @@ def interactive_diffmap_2D(adata):
                              mode='markers', 
                              marker=dict(color=adata.obs.iloc[:,1], colorscale='viridis', colorbar=dict(title='Pseudotime')), #2nd column obs
                              text=adata.obs.iloc[:,0],#1st column obs
-                             #scustomdata=adata.obs['n_counts_all'],
-                             hovertemplate='Pseudotime: %{marker.color:.2f}<br>Cluster: %{text}'
+                             customdata=adata.obs_names,
+                             hovertemplate='Cell ID: %{customdata}<br>Pseudotime: %{marker.color:.2f}<br>Cluster: %{text}'
                              )
                  )
 
@@ -102,8 +102,8 @@ def interactive_diffmap_3D(adata):
                              mode='markers', 
                              marker=dict(color=adata.obs.iloc[:,1], colorscale='viridis', colorbar=dict(title='Pseudotime')), #2nd column obs
                              text=adata.obs.iloc[:,0],#1st column obs
-                             #customdata=adata.obs['n_counts_all'],
-                             hovertemplate='Pseudotime: %{marker.color:.2f}<br>Cluster: %{text}'
+                             customdata=adata.obs_names,
+                             hovertemplate='Cell ID: %{customdata}<br>Pseudotime: %{marker.color:.2f}<br>Cluster: %{text}'
                              )
                  )
 
@@ -158,3 +158,5 @@ def interactive_diffmap_3D(adata):
     # Show the plot
     plot = fig.show(config={"displayModeBar": True}, auto_open=True)
     return(plot)
+
+
