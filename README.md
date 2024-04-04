@@ -16,7 +16,7 @@ You will also need to install the required libraries either using pip or directl
 
 ```bash
 cd sc_oop
-pip install -r requirements. txt
+pip install -r requirements.txt
 ```
 
 ## Importing the Package
