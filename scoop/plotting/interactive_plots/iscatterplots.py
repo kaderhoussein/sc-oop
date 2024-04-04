@@ -199,6 +199,3 @@ def interactive_diffmap_3D(adata):
     # Show the plot
     plot = fig.show(config={"displayModeBar": True}, auto_open=True)
     return(plot)
-
-adata = sc.datasets.paul15()
-interactive_diffmap_2D(adata)
