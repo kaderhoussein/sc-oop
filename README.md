@@ -15,7 +15,7 @@ git clone https://github.com/kaderhoussein/sc_oop.git
 You will also need to install the required libraries either using pip or directly using the requirements.txt file
 
 ```bash
-cd scoop
+cd sc_oop
 pip install -r requirements. txt
 ```
 
