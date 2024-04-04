@@ -24,7 +24,7 @@ def interactive_diffmap_2D(adata):
                              mode='markers', 
                              marker=dict(color=adata.obs.iloc[:,1], colorscale='viridis', colorbar=dict(title='Pseudotime')), #2nd column obs
                              text=adata.obs.iloc[:,0],#1st column obs
-                             #customdata=adata.obs['n_counts_all'],
+                             #scustomdata=adata.obs['n_counts_all'],
                              hovertemplate='Pseudotime: %{marker.color:.2f}<br>Cluster: %{text}'
                              )
                  )
