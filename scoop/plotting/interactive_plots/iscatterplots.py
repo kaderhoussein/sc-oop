@@ -25,7 +25,7 @@ def interactive_diffmap_2D(adata):
                              marker=dict(color=adata.obs.iloc[:,1], colorscale='viridis', colorbar=dict(title='Pseudotime')), #2nd column obs
                              text=adata.obs.iloc[:,0],#1st column obs
                              customdata=adata.obs_names,
-                             hovertemplate='Cell ID: %{customdata}<br>Pseudotime: %{marker.color:.2f}<br>Cluster: %{text}'
+                             hovertemplate='Index : %{customdata}<br>'+adata.obs.columns[1]+': %{marker.color:.2f}'+'<br>'+adata.obs.columns[0]+ ': %{text}'
                              )
                  )
 
@@ -44,7 +44,7 @@ def interactive_diffmap_2D(adata):
                         args=[{"x": [adata.obsm['X_diffmap'][:, 0]],
                                "y": [adata.obsm['X_diffmap'][:, 1]],
                                "marker.color": [adata.obs.iloc[:,1]],
-                               "marker.colorbar.title": "Pseudotime",
+                               "marker.colorbar.title": adata.obs.columns[1],
                                "text": [adata.obs.iloc[:,0]]}],
                         label="Components choice 1",
                         method="restyle"
@@ -53,7 +53,7 @@ def interactive_diffmap_2D(adata):
                         args=[{"x": [adata.obsm['X_diffmap'][:,1]],
                                "y": [adata.obsm['X_diffmap'][:, 2]],
                                "marker.color": [adata.obs.iloc[:,1]],
-                                "marker.colorbar.title": "Pseudotime",
+                                "marker.colorbar.title": adata.obs.columns[1],
                                "text": [adata.obs.iloc[:,0]]}],
                         label="Components choice 2",    
                         method="restyle"
@@ -62,11 +62,32 @@ def interactive_diffmap_2D(adata):
                         args=[{"x": [adata.obsm['X_diffmap'][:,2]],
                                "y": [adata.obsm['X_diffmap'][:, 3]],
                                "marker.color": [adata.obs.iloc[:,1]],
-                                "marker.colorbar.title": "Pseudotime",
+                                "marker.colorbar.title": adata.obs.columns[1],
                                "text": [adata.obs.iloc[:,0]]}],
                         label="Components choice 3",    
                         method="restyle"
                     
+                    ),
+                     dict(
+                        args=[{"type": "scatter3d",
+                               "x": [adata.obsm['X_diffmap'][:, 0]],
+                               "y": [adata.obsm['X_diffmap'][:, 1]],
+                               "z": [adata.obsm['X_diffmap'][:, 2]],
+                               "marker.color": [adata.obs.iloc[:,1]],
+                               "marker.colorbar.title": adata.obs.columns[1],
+                               "text": [adata.obs.iloc[:,0]]}],
+                        label="3D plot",
+                        method="restyle"
+                    ),
+                    dict(
+                        args=[{"type": "scatter",
+                               "x": [adata.obsm['X_diffmap'][:, 0]],
+                               "y": [adata.obsm['X_diffmap'][:, 1]],
+                               "marker.color": [adata.obs.iloc[:,1]],
+                               "marker.colorbar.title": adata.obs.columns[1],
+                               "text": [adata.obs.iloc[:,0]]}],
+                        label="2D plot",
+                        method="restyle"
                     )
                 ])
             )
@@ -103,7 +124,7 @@ def interactive_diffmap_3D(adata):
                              marker=dict(color=adata.obs.iloc[:,1], colorscale='viridis', colorbar=dict(title='Pseudotime')), #2nd column obs
                              text=adata.obs.iloc[:,0],#1st column obs
                              customdata=adata.obs_names,
-                             hovertemplate='Cell ID: %{customdata}<br>Pseudotime: %{marker.color:.2f}<br>Cluster: %{text}'
+                             hovertemplate='Index : %{customdata}<br>'+adata.obs.columns[1]+': %{marker.color:.2f}'+'<br>'+adata.obs.columns[0]+ ': %{text}'
                              )
                  )
 
@@ -124,7 +145,7 @@ def interactive_diffmap_3D(adata):
                                "y": [adata.obsm['X_diffmap'][:, 1]],
                                "z": [adata.obsm['X_diffmap'][:, 2]],
                                "marker.color": [adata.obs.iloc[:,1]],
-                               "marker.colorbar.title": "Pseudotime",
+                               "marker.colorbar.title": adata.obs.columns[1],
                                "text": [adata.obs.iloc[:,0]]}],
                         label="Components choice 1",
                         method="restyle"
@@ -134,7 +155,7 @@ def interactive_diffmap_3D(adata):
                                "y": [adata.obsm['X_diffmap'][:, 2]],
                                "z": [adata.obsm['X_diffmap'][:, 3]],
                                "marker.color": [adata.obs.iloc[:,1]],
-                                "marker.colorbar.title": "Pseudotime",
+                                "marker.colorbar.title": adata.obs.columns[1],
                                "text": [adata.obs.iloc[:,0]]}],
                         label="Components choice 2",    
                         method="restyle"
@@ -144,17 +165,37 @@ def interactive_diffmap_3D(adata):
                                "y": [adata.obsm['X_diffmap'][:, 3]],
                                "z": [adata.obsm['X_diffmap'][:, 4]],
                                "marker.color": [adata.obs.iloc[:,1]],
-                                "marker.colorbar.title": "Pseudotime",
+                                "marker.colorbar.title": adata.obs.columns[1],
                                "text": [adata.obs.iloc[:,0]]}],
                         label="Components choice 3",    
                         method="restyle"
                     
+                    ),
+                     dict(
+                        args=[{"type": "scatter3d",
+                               "x": [adata.obsm['X_diffmap'][:, 0]],
+                               "y": [adata.obsm['X_diffmap'][:, 1]],
+                               "z": [adata.obsm['X_diffmap'][:, 2]],
+                               "marker.color": [adata.obs.iloc[:,1]],
+                               "marker.colorbar.title": adata.obs.columns[1],
+                               "text": [adata.obs.iloc[:,0]]}],
+                        label="3D plot",
+                        method="restyle"
+                    ),
+                    dict(
+                        args=[{"type": "scatter",
+                               "x": [adata.obsm['X_diffmap'][:, 0]],
+                               "y": [adata.obsm['X_diffmap'][:, 1]],
+                               "marker.color": [adata.obs.iloc[:,1]],
+                               "marker.colorbar.title": adata.obs.columns[1],
+                               "text": [adata.obs.iloc[:,0]]}],
+                        label="2D plot",
+                        method="restyle"
                     )
                 ])
             )
         ]
     )
-
     # Show the plot
     plot = fig.show(config={"displayModeBar": True}, auto_open=True)
     return(plot)
