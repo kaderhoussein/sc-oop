@@ -1,28 +1,8 @@
 # API
 
-Import Scanpy as:
+Import scoop as:
 
 ```
-import scanpy as sc
+from scoop.plotting.interactive_plots import iscatterplots
 ```
 
-```{note}
-Additional functionality is available in the broader {doc}`ecosystem <../ecosystem>`, with some tools being wrapped in the {mod}`scanpy.external` module.
-```
-
-```{toctree}
-:maxdepth: 2
-
-preprocessing
-tools
-plotting
-reading
-get
-queries
-metrics
-experimental
-classes
-settings
-datasets
-deprecated
-```

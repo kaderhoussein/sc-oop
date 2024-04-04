@@ -1,7 +1,7 @@
 import scanpy
 import plotly
 
-from .plotting._tools.scatterplots import interactive_diffmap
+from .plotting.interactive_plots.iscatterplots import interactive_diffmap
 
 __all__ = [
 
