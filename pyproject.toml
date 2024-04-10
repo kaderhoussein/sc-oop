@@ -15,22 +15,19 @@ license = "BSD-3-clause"
 keywords = ["single cell", "visualization"]
 [project.urls]
 Repository = "https://github.com/kaderhoussein/sc_oop"
-Documentation = "https://kaderhoussein.github.io/sc_oop"
+# Documentation = "https://kaderhoussein.github.io/sc_oop"
 [build-system]
 requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build]
-exclude = ["sc_oop/tests"]
+exclude = ["scoop/tests"]
 [tool.hatch.version]
 source = "vcs"
 [tool.hatch.build.hooks.vcs]
-version-file = "sc_oop/_version.py"
+version-file = "scoop/_version.py"
 
 [project.optional-dependencies]
-test = [
-    "test.py"
-]
 docs = [
     "pytz",
     "tzdata", # avoid error on CI
