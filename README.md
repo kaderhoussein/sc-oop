@@ -25,16 +25,17 @@ To use the interactive_diffmap_2D function, you need to import the following mod
 ```python
 import scanpy as sc
 import plotly.graph_objects as go
-from scoop.plotting.interactive_plots.iscatterplots import interactive_diffmap_2D, interactive_diffmap_3D
+from scoop.plotting.interactive_plots.iscatterplots import interactive_diffmap_2D, interactive_diffmap_3D, interactive_UMAP_2D
 ```
 
 ## Example of use
 
-Here's an example of how to use the interactive_diffmap_2D function:
+Here's an example of how to use the interactive_diffmap_2D and the interactive_UMAP_2D  functions:
 
 ```python
 adata = sc.datasets.paul15()
 interactive_diffmap_2D(adata)
+interactive_UMAP_2D(adata)
 ```
 
 ## Authors
