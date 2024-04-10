@@ -8,6 +8,7 @@ authors = [
 dependencies = [
     "scanpy",
     "plotly",
+    "openpyxl",
 ]
 description = "A dynamic scanpy plotting alternative based on plotly"
 readme = "README.md"
