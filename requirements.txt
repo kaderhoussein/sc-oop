@@ -1,2 +1,3 @@
 scanpy 
 plotly
+openpyxl
