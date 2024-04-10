@@ -34,7 +34,7 @@ def interactive_diffmap_2D(adata):
                       xaxis_title='Diffmap Component 1',
                       yaxis_title='Diffmap Component 2')
 
-    # Add buttons for selecting method
+    # Add buttons
     fig.update_layout(
         updatemenus=[
             dict(
@@ -134,7 +134,7 @@ def interactive_diffmap_3D(adata):
                                  yaxis_title='Diffmap Component 2',
                                  zaxis_title='Diffmap Component 3'))
 
-    # Add buttons for selecting method
+    # Add buttons
     fig.update_layout(
         updatemenus=[
             dict(
