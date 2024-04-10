@@ -1,5 +1,7 @@
 import scanpy as sc
 import plotly.graph_objects as go
+import plotly.express as px
+
 
 # 2D
 
@@ -22,7 +24,7 @@ def interactive_diffmap_2D(adata):
     fig.add_trace(go.Scatter(x=adata.obsm['X_diffmap'][:, 0],
                              y=adata.obsm['X_diffmap'][:, 1],
                              mode='markers', 
-                             marker=dict(color=adata.obs.iloc[:,1], colorscale='viridis', colorbar=dict(title=adata.obs.columns[1])), #2nd column obs
+                             marker=dict(color=adata.obs.iloc[:,1], colorscale='viridis', colorbar=dict(title='Pseudotime')), #2nd column obs
                              text=adata.obs.iloc[:,0],#1st column obs
                              customdata=adata.obs_names,
                              hovertemplate='Index : %{customdata}<br>'+adata.obs.columns[1]+': %{marker.color:.2f}'+'<br>'+adata.obs.columns[0]+ ': %{text}'
@@ -121,7 +123,7 @@ def interactive_diffmap_3D(adata):
                              y=adata.obsm['X_diffmap'][:, 1],
                              z=adata.obsm['X_diffmap'][:, 2],
                              mode='markers', 
-                             marker=dict(color=adata.obs.iloc[:,1], colorscale='viridis', colorbar=dict(title=adata.obs.columns[1])), #2nd column obs
+                             marker=dict(color=adata.obs.iloc[:,1], colorscale='viridis', colorbar=dict(title='Pseudotime')), #2nd column obs
                              text=adata.obs.iloc[:,0],#1st column obs
                              customdata=adata.obs_names,
                              hovertemplate='Index : %{customdata}<br>'+adata.obs.columns[1]+': %{marker.color:.2f}'+'<br>'+adata.obs.columns[0]+ ': %{text}'
@@ -134,7 +136,7 @@ def interactive_diffmap_3D(adata):
                                  yaxis_title='Diffmap Component 2',
                                  zaxis_title='Diffmap Component 3'))
 
-    # Add buttons
+    # Add buttons for selecting method
     fig.update_layout(
         updatemenus=[
             dict(
@@ -199,3 +201,21 @@ def interactive_diffmap_3D(adata):
     # Show the plot
     plot = fig.show(config={"displayModeBar": True}, auto_open=True)
     return(plot)
+
+
+
+def interactive_umap_2D(adata):
+    # Compute the UMAP embedding
+    sc.pp.neighbors(adata)
+    sc.tl.umap(adata)
+
+    # Create an interactive UMAP plot using Plotly Express
+    fig = px.scatter(adata.obsm["X_umap"], x=0, y=1, color=adata.obs.iloc[:,0])
+
+    fig.update_traces(customdata=adata.obs_names, hovertemplate='Index: %{customdata}<br>')
+    fig.update_layout(title='Interactive UMAP',
+                    xaxis_title='UMAP1',
+                    yaxis_title='UMAP2')
+    fig.show()
+
+
