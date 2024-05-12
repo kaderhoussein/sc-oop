@@ -38,7 +38,6 @@ Here's an example of how to use the interactive_diffmap_2D and the interactive_U
 ```python
 adata = sc.datasets.paul15()
 interactive_diffmap_2D(adata)
-interactive_UMAP_2D(adata)
 ```
 ## Install
 
