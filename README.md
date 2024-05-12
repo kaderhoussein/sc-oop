@@ -56,7 +56,6 @@ import scoop.plotting.interactive_plots.iscatterplots
 
 adata = sc.datasets.paul15()
 scoop.plotting.interactive_plots.iscatterplots.interactive_diffmap_2D(adata)
-scoop.plotting.interactive_plots.iscatterplots.interactive_UMAP_2D(adata)
 ```
 
 ## Authors
